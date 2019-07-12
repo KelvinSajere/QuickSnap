@@ -42,27 +42,27 @@ class BusinessCardForm extends StatelessWidget {
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(
-                    hintText: "Business Name", icon: Icon(Icons.business)),
+                    labelText: "Business Name", icon: Icon(Icons.business)),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                    hintText: "Client Name", icon: Icon(Icons.person)),
+                    labelText: "Client Name", icon: Icon(Icons.person)),
               ),
               TextFormField(
                 decoration:
-                    InputDecoration(hintText: "Role", icon: Icon(Icons.title)),
+                    InputDecoration(labelText: "Role", icon: Icon(Icons.title)),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                    hintText: "Phone Number", icon: Icon(Icons.phone_android)),
-              ),
-              TextFormField(
-                decoration:
-                    InputDecoration(hintText: "Website", icon: Icon(Icons.web)),
+                    labelText: "Phone Number", icon: Icon(Icons.phone_android)),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                    hintText: "Address", icon: Icon(Icons.location_city)),
+                    labelText: "Website", icon: Icon(Icons.web)),
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                    icon: Icon(Icons.location_city), labelText: "Address"),
               ),
               Center(
                 child: RaisedButton(
