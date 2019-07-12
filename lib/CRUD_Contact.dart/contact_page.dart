@@ -12,12 +12,15 @@ class ContactPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Expanded(
-                child: Card(
-              child: Center(
-                  child: Image.asset('assets/food.jpg', fit: BoxFit.fill)),
+                child: FittedBox(
+              child: Card(
+                child: Center(
+                    child: Image.asset('assets/food.jpg', fit: BoxFit.fill)),
+              ),
             )),
             Expanded(
                 child: Card(
+                    elevation: 10.00,
                     child: Container(
                         padding: EdgeInsets.all(10),
                         child: BusinessCardForm())))
@@ -61,8 +64,7 @@ class BusinessCardForm extends StatelessWidget {
                 decoration: InputDecoration(
                     hintText: "Address", icon: Icon(Icons.location_city)),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+              Center(
                 child: RaisedButton(
                   onPressed: () {
                     // Validate will return true if the form is valid, or false if
