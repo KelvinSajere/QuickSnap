@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:quicksnap/CRUD_Contact.dart/contact_page.dart';
 import 'camera_bloc.dart';
 
 class CameraPage extends StatelessWidget {
@@ -34,7 +35,7 @@ class CameraPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DisplayPictureScreen(),
+                      builder: (context) => ContactPage(),
                     ));
               },
             )));
