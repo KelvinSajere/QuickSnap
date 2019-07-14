@@ -4,7 +4,15 @@
  *Saving business card information
  *Making API call 
  */
+import 'package:quicksnap/database/database.dart';
+import 'package:quicksnap/database/tables.dart';
+
+import 'business_card_entity.dart';
+
 class BusinessCardBloc {
+  final Repository repo = Repository();
+  final String tableName = TABLES.BUSINESS_CARD;
+
   String validateEmail(String email) {
     final RegExp regex = new RegExp(
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
@@ -23,7 +31,14 @@ class BusinessCardBloc {
     return null;
   }
 
-  String validateRequiredInput(String input, String name) {
-    return input.isNotEmpty ? null : "Please enter a $name";
+  String validateRequiredInput(String input, String name) =>
+      input.isNotEmpty ? null : "Please enter a $name";
+
+  String validateRequiredInput2(String input, String name) =>
+      input.isNotEmpty ? null : "Please enter a $name";
+  Future<int> saveNewBusinessCard(BusinessCard entity) async {
+    final result = await repo.insert(entity, tableName);
+    print("This is the result of the save:::$result");
+    return result;
   }
 }

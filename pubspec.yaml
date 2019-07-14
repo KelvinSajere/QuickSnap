@@ -28,6 +28,10 @@ dependencies:
   image_picker: ^0.6.0+15
   # Provider Plugin
   provider: ^3.0.0+1
+  # SQlite Database
+  sqflite: ^1.0.0
+  # Path Provider
+  path_provider: ^0.5.0+1
   
 
 dev_dependencies:

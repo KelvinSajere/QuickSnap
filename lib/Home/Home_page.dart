@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:quicksnap/CRUD_Contact.dart/business_card.dart';
-import 'package:quicksnap/CRUD_Contact.dart/contact_page.dart';
 import 'package:quicksnap/Camera/index.dart';
+import 'package:quicksnap/business_card/contact_page.dart';
 
 class HomePage extends StatefulWidget {
   @override

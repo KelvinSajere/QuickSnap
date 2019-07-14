@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:quicksnap/CRUD_Contact.dart/business_card.dart';
-import 'package:quicksnap/CRUD_Contact.dart/crud_business_card.dart';
+import 'business_card_bloc.dart';
+import 'business_card_entity.dart';
 
 /*
  *Business Card Form used to perform CRUD function on Business Card information
@@ -54,6 +54,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
   @override
   Widget build(BuildContext context) {
     var _businessCard = BusinessCard();
+    var _businessBloc = BusinessCardBloc();
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
@@ -161,6 +162,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
+                      _businessBloc.saveNewBusinessCard(_businessCard);
                     }
                   },
                   child: Text('Submit'),
