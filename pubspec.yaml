@@ -25,9 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   # Camera capabilities
-  camera:
-  path_provider:
-  path:
+  image_picker: ^0.6.0+15
   # Provider Plugin
   provider: ^3.0.0+1
   

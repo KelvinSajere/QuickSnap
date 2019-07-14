@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quicksnap/Home/Home_page.dart';
 import 'package:provider/provider.dart';
-import 'package:quicksnap/Camera/index.dart';
+
+import 'Camera/camera_bloc.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<CameraBloc>(
