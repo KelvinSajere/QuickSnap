@@ -1,16 +1,18 @@
+import 'package:flutter/cupertino.dart';
+import 'package:quicksnap/database/repository.dart';
+import 'package:quicksnap/database/tables.dart';
+
+import 'business_card_entity.dart';
+
 /*
  *Business Card Bloc  containing all business logic relating to business card
  *Validation business card information
  *Saving business card information
  *Making API call 
  */
-import 'package:quicksnap/database/database.dart';
-import 'package:quicksnap/database/tables.dart';
-
-import 'business_card_entity.dart';
-
-class BusinessCardBloc {
-  final Repository repo = Repository();
+class BusinessCardBloc with ChangeNotifier {
+  final Repository<BusinessCard> repo =
+      Repository(entity: BusinessCard(), tableName: TABLES.BUSINESS_CARD);
   final String tableName = TABLES.BUSINESS_CARD;
 
   String validateEmail(String email) {
@@ -36,9 +38,16 @@ class BusinessCardBloc {
 
   String validateRequiredInput2(String input, String name) =>
       input.isNotEmpty ? null : "Please enter a $name";
+
   Future<int> saveNewBusinessCard(BusinessCard entity) async {
-    final result = await repo.insert(entity, tableName);
+    final result = await repo.create(entity);
     print("This is the result of the save:::$result");
+    return result;
+  }
+
+  Future<List<BusinessCard>> retrieveBusinessCards() async {
+    final result = await repo.retrieve();
+    //print("This is the result of the save:::${result.first}");
     return result;
   }
 }

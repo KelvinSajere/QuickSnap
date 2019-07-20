@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:quicksnap/database/entity.dart';
 /*
 Entity Class that holds the Business Card Defination 
@@ -13,6 +14,27 @@ class BusinessCard extends Entity {
       _address,
       _imageUrl;
   int _id;
+
+  BusinessCard();
+  BusinessCard.withValues(
+      {@required String businessName,
+      @required String clientName,
+      @required String role,
+      @required String phoneNumber,
+      String email,
+      String webSite,
+      @required String address,
+      @required String imageUrl,
+      int id})
+      : _businessName = businessName,
+        _clientName = clientName,
+        _role = role,
+        _phoneNumber = phoneNumber,
+        _email = email,
+        _webSite = webSite,
+        _address = address,
+        _imageUrl = imageUrl,
+        _id = id;
 
   set setBusinessName(String input) => _businessName = input;
 
@@ -42,6 +64,10 @@ class BusinessCard extends Entity {
 
   String get getAddress => _address;
 
+  set setImageUrl(String imageUrl) => _imageUrl = imageUrl;
+
+  String get getImageUrl => _imageUrl;
+
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       "business_card_image_url": _imageUrl,
@@ -57,5 +83,33 @@ class BusinessCard extends Entity {
       map["id"] = _id;
     }
     return map;
+  }
+
+  @override
+  BusinessCard fromMap(Map<String, dynamic> map) {
+    return BusinessCard.withValues(
+        businessName: map["business_name"],
+        clientName: map["client_name"],
+        address: map["address"],
+        imageUrl: map["business_card_image_url"],
+        phoneNumber: map["phone_number"],
+        role: map["role"],
+        email: map["email"],
+        webSite: map["web_url"]);
+  }
+
+  @override
+  String toString() {
+    StringBuffer buffer = StringBuffer();
+    buffer.writeln("business_card_image_url $_imageUrl");
+    buffer.writeln("business_name $_businessName");
+    buffer.writeln("client_name $_clientName");
+    buffer.writeln("role $_role");
+    buffer.writeln("phone_number $_phoneNumber");
+    buffer.writeln("email $_email");
+    buffer.writeln("web_url $_webSite");
+    buffer.writeln("address $_address");
+    buffer.writeln("ID $_id");
+    return buffer.toString();
   }
 }

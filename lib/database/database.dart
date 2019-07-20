@@ -3,12 +3,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'entity.dart';
-
 // singleton class to manage the database
 class DataBaseProvider {
   // This is the actual database filename that is saved in the docs directory.
-  static final _databaseName = "MyDatabase.db";
+  static final _databaseName = "quicksnap.db";
   // Increment this version when you need to change the schema.
   static final _databaseVersion = 1;
 
@@ -33,7 +31,7 @@ class DataBaseProvider {
   _initDatabase() async {
     // The path_provider plugin gets the right directory for Android or iOS.
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, _databaseName);
+    String path = join(documentsDirectory.path, "database", _databaseName);
     // Open the database. Can also add an onUpdate callback parameter.
     return await openDatabase(path,
         version: _databaseVersion, onCreate: _onCreate);
@@ -54,26 +52,5 @@ class DataBaseProvider {
                     address       TEXT
                 )
               ''');
-  }
-}
-
-class Repository<T extends Entity> {
-  Database db;
-// Make this a singleton class.
-  static final Repository _singleton = new Repository._internal();
-
-  factory Repository() {
-    return _singleton;
-  }
-
-  Repository._internal();
-
-  // Database helper methods:
-  DataBaseProvider databaseHelper = DataBaseProvider();
-
-  Future<int> insert(T entity, String tableName) async {
-    Database db = await databaseHelper.database;
-    int id = await db.insert(tableName, entity.toMap());
-    return id;
   }
 }

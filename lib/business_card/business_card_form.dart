@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'business_card_bloc.dart';
@@ -8,6 +10,10 @@ import 'business_card_entity.dart';
  *  
  */
 class BusinessCardForm extends StatefulWidget {
+  final File _imageUrl;
+  BusinessCardForm({Key key, @required File imageUrl})
+      : this._imageUrl = imageUrl,
+        super(key: key);
   @override
   _BusinessCardFormState createState() => _BusinessCardFormState();
 }
@@ -162,7 +168,9 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
+                      _businessCard.setImageUrl = widget._imageUrl.path;
                       _businessBloc.saveNewBusinessCard(_businessCard);
+                      print("THis is image URL:${_businessCard.getImageUrl}");
                     }
                   },
                   child: Text('Submit'),

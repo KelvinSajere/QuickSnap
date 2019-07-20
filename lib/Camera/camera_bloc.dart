@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 
 class CameraBloc with ChangeNotifier {
   File _selectedImage;
-
   set _setSelectedImage(File image) {
     _selectedImage = image;
     notifyListeners();

@@ -38,7 +38,8 @@ class _ContactPageState extends State<ContactPage> {
                     elevation: 10.00,
                     child: Container(
                         padding: EdgeInsets.all(10),
-                        child: BusinessCardForm())))
+                        child: BusinessCardForm(
+                            imageUrl: _cameraBloc.getSelectedImage))))
           ],
         ),
       ),
