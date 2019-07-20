@@ -20,6 +20,8 @@ class BusinessCardForm extends StatefulWidget {
 
 class _BusinessCardFormState extends State<BusinessCardForm> {
   final _formKey = GlobalKey<FormState>();
+  var _businessBloc = BusinessCardBloc();
+  var _businessCard = BusinessCard();
   FocusNode _clientNameFocus;
   FocusNode _roleFocus;
   FocusNode _phoneNumberFocus;
@@ -59,8 +61,6 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
 
   @override
   Widget build(BuildContext context) {
-    var _businessCard = BusinessCard();
-    var _businessBloc = BusinessCardBloc();
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
@@ -166,12 +166,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                 child: RaisedButton(
                   focusNode: _buttonFocus,
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      _businessCard.setImageUrl = widget._imageUrl.path;
-                      _businessBloc.saveNewBusinessCard(_businessCard);
-                      print("THis is image URL:${_businessCard.getImageUrl}");
-                    }
+                    onSaveButtonPressed();
                   },
                   child: Text('Submit'),
                 ),
@@ -179,5 +174,25 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
             ],
           ),
         ));
+  }
+
+/*
+ * On SUbmit button Event
+ *  */
+  void onSaveButtonPressed() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      _businessCard.setImageUrl = widget._imageUrl.path;
+      final saved = await _businessBloc.saveNewBusinessCard(_businessCard);
+      if (saved > 0) {
+        _formKey.currentState.reset();
+        final snackBar =
+            SnackBar(content: Text('Business Card Saved Successfully'));
+        Scaffold.of(context).showSnackBar(snackBar);
+        Future<void>.delayed(Duration(seconds: 2), () {
+          Navigator.pop(context);
+        });
+      }
+    }
   }
 }

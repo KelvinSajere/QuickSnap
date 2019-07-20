@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quicksnap/Home/Home_page.dart';
-import 'package:provider/provider.dart';
-import 'package:quicksnap/business_card/business_card_bloc.dart';
 
-import 'Camera/camera_bloc.dart';
-
-void main() {
-  runApp(
-    MultiProvider(providers: <SingleChildCloneableWidget>[
-      ChangeNotifierProvider<CameraBloc>(
-          builder: (BuildContext context) => CameraBloc()),
-      ChangeNotifierProvider<BusinessCardBloc>(
-          builder: (BuildContext context) => BusinessCardBloc())
-    ], child: MyApp()),
-  );
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

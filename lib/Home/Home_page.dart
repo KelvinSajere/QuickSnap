@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:quicksnap/Camera/index.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:quicksnap/business_card/business_card_bloc.dart';
 import 'package:quicksnap/business_card/business_card_entity.dart';
 import 'package:quicksnap/business_card/contact_page.dart';
+import 'all_business_card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,7 +12,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> _optionsDialogBox(BuildContext context) {
-    final _cameraBloc = Provider.of<CameraBloc>(context);
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -25,11 +22,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     child: new Text('Take a picture'),
                     onTap: () {
-                      _cameraBloc.getBusinessCardFromCamera();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ContactPage()),
-                      );
+                      getImage(ImageSource.camera, context);
                     },
                   ),
                   Padding(
@@ -38,13 +31,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     child: new Text('Select from gallery'),
                     onTap: () {
-                      _cameraBloc.getBusinessCardFromGallery();
-                      return Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ContactPage(),
-                            maintainState: false),
-                      );
+                      getImage(ImageSource.gallery, context);
                     },
                   ),
                 ],
@@ -54,9 +41,23 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
+  void getImage(ImageSource imageSource, BuildContext context) async {
+    final image = await ImagePicker.pickImage(
+      source: imageSource,
+    );
+    if (image != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ContactPage(image: image),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _bloc = Provider.of<BusinessCardBloc>(context);
+    final _bloc = BusinessCardBloc();
     final _future = _bloc.retrieveBusinessCards();
     return Scaffold(
         appBar: AppBar(
@@ -87,44 +88,6 @@ class _HomePageState extends State<HomePage> {
             }
             return Center(child: CircularProgressIndicator());
           },
-        ));
-  }
-}
-
-class AllBusinessCard extends StatelessWidget {
-  final List<BusinessCard> _cards;
-
-  const AllBusinessCard({Key key, @required List<BusinessCard> cards})
-      : this._cards = cards,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(10.0),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: TextField(
-                decoration: InputDecoration(hintText: 'Enter a search term'),
-              ),
-            ),
-            Expanded(
-                flex: 9,
-                child: ListView(
-                    scrollDirection: Axis.vertical,
-                    children: _cards.isNotEmpty
-                        ? _cards
-                            .map((element) => Card(
-                                    child: Image.file(
-                                  File(element.getImageUrl),
-                                  height: 250,
-                                  fit: BoxFit.fill,
-                                )))
-                            .toList()
-                        : []))
-          ],
         ));
   }
 }

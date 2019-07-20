@@ -1,23 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
-import 'package:quicksnap/Camera/camera_bloc.dart';
-
 import 'business_card_form.dart';
 
 /*
 Contact Page containing the Business card , and extracted business card information
 Contact Page => BusinessCard Form
  */
-class ContactPage extends StatefulWidget {
-  @override
-  _ContactPageState createState() => _ContactPageState();
-}
-
-class _ContactPageState extends State<ContactPage> {
-  @override
+class ContactPage extends StatelessWidget {
+  final File _image;
+  const ContactPage({Key key, File image})
+      : this._image = image,
+        super(key: key);
   Widget build(BuildContext context) {
-    final _cameraBloc = Provider.of<CameraBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Contact Details'),
@@ -28,9 +24,9 @@ class _ContactPageState extends State<ContactPage> {
             Expanded(
                 child: FittedBox(
               child: Card(
-                child: _cameraBloc.getSelectedImage == null
+                child: _image == null
                     ? Center(child: CircularProgressIndicator())
-                    : Image.file(_cameraBloc.getSelectedImage),
+                    : Image.file(_image),
               ),
             )),
             Expanded(
@@ -38,8 +34,7 @@ class _ContactPageState extends State<ContactPage> {
                     elevation: 10.00,
                     child: Container(
                         padding: EdgeInsets.all(10),
-                        child: BusinessCardForm(
-                            imageUrl: _cameraBloc.getSelectedImage))))
+                        child: BusinessCardForm(imageUrl: _image))))
           ],
         ),
       ),

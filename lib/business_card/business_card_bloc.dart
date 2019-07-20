@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:quicksnap/database/repository.dart';
 import 'package:quicksnap/database/tables.dart';
 
@@ -10,7 +9,7 @@ import 'business_card_entity.dart';
  *Saving business card information
  *Making API call 
  */
-class BusinessCardBloc with ChangeNotifier {
+class BusinessCardBloc {
   final Repository<BusinessCard> repo =
       Repository(entity: BusinessCard(), tableName: TABLES.BUSINESS_CARD);
   final String tableName = TABLES.BUSINESS_CARD;
@@ -36,9 +35,6 @@ class BusinessCardBloc with ChangeNotifier {
   String validateRequiredInput(String input, String name) =>
       input.isNotEmpty ? null : "Please enter a $name";
 
-  String validateRequiredInput2(String input, String name) =>
-      input.isNotEmpty ? null : "Please enter a $name";
-
   Future<int> saveNewBusinessCard(BusinessCard entity) async {
     final result = await repo.create(entity);
     print("This is the result of the save:::$result");
@@ -47,7 +43,6 @@ class BusinessCardBloc with ChangeNotifier {
 
   Future<List<BusinessCard>> retrieveBusinessCards() async {
     final result = await repo.retrieve();
-    //print("This is the result of the save:::${result.first}");
     return result;
   }
 }
