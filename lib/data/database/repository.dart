@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quicksnap/database/database.dart';
+import 'package:quicksnap/models/abstract_entity/entity.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-import 'entity.dart';
+import 'database.dart';
 
-class Repository<T extends Entity> {
+class Repository<T extends AbstractEntity> {
   final T _entity;
   final String _tableName;
 
@@ -21,12 +21,12 @@ class Repository<T extends Entity> {
     return id;
   }
 
-  Future<List<Entity>> retrieve() async {
+  Future<List<AbstractEntity>> retrieve() async {
     Database db = await databaseHelper.database;
     final results = await db.query(_tableName, orderBy: "id DESC");
-    final List<Entity> resultsInEntity = results.isNotEmpty
+    final List<AbstractEntity> resultsInEntity = results.isNotEmpty
         ? results.map((result) => _entity.fromMap(result)).toList()
-        : <Entity>[];
+        : <AbstractEntity>[];
     return List<T>.from(resultsInEntity);
   }
 }

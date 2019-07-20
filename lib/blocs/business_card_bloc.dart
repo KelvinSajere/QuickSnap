@@ -1,7 +1,6 @@
-import 'package:quicksnap/database/repository.dart';
-import 'package:quicksnap/database/tables.dart';
-
-import 'business_card_entity.dart';
+import 'package:quicksnap/data/database/repository.dart';
+import 'package:quicksnap/data/database/tables.dart';
+import 'package:quicksnap/models/business_card_entity.dart';
 
 /*
  *Business Card Bloc  containing all business logic relating to business card

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:quicksnap/business_card/business_card_bloc.dart';
-import 'package:quicksnap/business_card/business_card_entity.dart';
-import 'package:quicksnap/business_card/contact_page.dart';
-import 'all_business_card.dart';
+import 'package:quicksnap/blocs/business_card_bloc.dart';
+import 'package:quicksnap/models/business_card_entity.dart';
+import 'package:quicksnap/screens/business_information/contact_page.dart';
+import 'package:quicksnap/screens/home/widgets/all_business_card.dart';
 
 class HomePage extends StatefulWidget {
   @override

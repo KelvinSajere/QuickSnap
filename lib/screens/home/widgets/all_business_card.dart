@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:quicksnap/business_card/business_card_entity.dart';
+import 'package:quicksnap/models/business_card_entity.dart';
 
 class AllBusinessCard extends StatelessWidget {
   final List<BusinessCard> _cards;

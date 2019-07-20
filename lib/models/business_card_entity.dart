@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:quicksnap/database/entity.dart';
+import 'package:quicksnap/models/abstract_entity/entity.dart';
 /*
 Entity Class that holds the Business Card Defination 
  */
 
-class BusinessCard extends Entity {
+class BusinessCard extends AbstractEntity {
   String _businessName,
       _clientName,
       _role,

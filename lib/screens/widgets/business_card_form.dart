@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'business_card_bloc.dart';
-import 'business_card_entity.dart';
+import 'package:quicksnap/blocs/business_card_bloc.dart';
+import 'package:quicksnap/models/business_card_entity.dart';
 
 /*
  *Business Card Form used to perform CRUD function on Business Card information

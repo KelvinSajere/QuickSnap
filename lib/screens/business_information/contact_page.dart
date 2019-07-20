@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'business_card_form.dart';
+import 'package:quicksnap/screens/widgets/business_card_form.dart';
 
 /*
 Contact Page containing the Business card , and extracted business card information
