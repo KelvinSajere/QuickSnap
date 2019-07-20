@@ -32,4 +32,32 @@ void main() {
       expect(businessCardBloc.validateWebUrl("gmail.com"), null);
     });
   });
+
+  group('Web Url Validation', () {
+    test('Invalid URL', () {
+      final businessCardBloc = BusinessCardBloc();
+
+      expect(businessCardBloc.validateWebUrl("email"),
+          "Please enter a valid Web Url");
+    });
+
+    test('Valid URL', () {
+      final businessCardBloc = BusinessCardBloc();
+
+      expect(businessCardBloc.validateWebUrl("gmail.com"), null);
+    });
+  });
+
+  group('Required Field', () {
+    test('Field is required', () {
+      final businessCardBloc = BusinessCardBloc();
+      expect(businessCardBloc.validateRequiredInput("", "username"),
+          "Please enter a username");
+    });
+
+    test('NonEmpty Field', () {
+      final businessCardBloc = BusinessCardBloc();
+      expect(businessCardBloc.validateRequiredInput("name", "username"), null);
+    });
+  });
 }
