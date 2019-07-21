@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:quicksnap/blocs/business_card_bloc.dart';
 import 'package:quicksnap/models/business_card_entity.dart';
 import 'package:quicksnap/screens/business_information/contact_page.dart';
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
       source: imageSource,
     );
     if (image != null) {
+      Navigator.of(context, rootNavigator: true).pop();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _bloc = BusinessCardBloc();
+    final _bloc = Provider.of<BusinessCardBloc>(context);
     final _future = _bloc.retrieveBusinessCards();
     return Scaffold(
       appBar: AppBar(
