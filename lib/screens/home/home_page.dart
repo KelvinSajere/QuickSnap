@@ -60,47 +60,48 @@ class _HomePageState extends State<HomePage> {
     final _bloc = BusinessCardBloc();
     final _future = _bloc.retrieveBusinessCards();
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-        ),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.contact_mail),
-            onPressed: () {
-              final future = _optionsDialogBox(context);
-              FutureBuilder(
-                future: future,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return CircularProgressIndicator();
-                  }
-                  return null;
-                },
-              );
-            }),
-        body: FutureBuilder(
-          future: _future,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              final List<BusinessCard> cards = snapshot.data;
-              return Container(
-                  margin: const EdgeInsets.all(10.0),
-                  child: Column(children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: TextField(
-                        decoration:
-                            InputDecoration(hintText: 'Enter a search term'),
-                      ),
-                    ),
-                    Expanded(
-                        flex: 9,
-                        child: AllBusinessCard(
-                          cards: cards,
-                        ))
-                  ]));
-            }
-            return Center(child: CircularProgressIndicator());
-          },
-        ));
+      appBar: AppBar(
+        title: Text("Home"),
+      ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.contact_mail),
+          onPressed: () {
+            final future = _optionsDialogBox(context);
+            FutureBuilder<void>(
+              future: future,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return CircularProgressIndicator();
+                }
+                return null;
+              },
+            );
+          }),
+      body: Container(
+          margin: const EdgeInsets.all(10.0),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: TextField(
+                  decoration: InputDecoration(hintText: 'Enter a search term'),
+                ),
+              ),
+              Expanded(
+                  flex: 9,
+                  child: FutureBuilder<List<BusinessCard>>(
+                      future: _future,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<BusinessCard>> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return AllBusinessCard(
+                            cards: snapshot.data,
+                          );
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }))
+            ],
+          )),
+    );
   }
 }
