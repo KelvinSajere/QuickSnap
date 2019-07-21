@@ -16,11 +16,11 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: new SingleChildScrollView(
-              child: new ListBody(
+            content: SingleChildScrollView(
+              child: ListBody(
                 children: <Widget>[
                   GestureDetector(
-                    child: new Text('Take a picture'),
+                    child: Text('Take a picture'),
                     onTap: () {
                       getImage(ImageSource.camera, context);
                     },
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(8.0),
                   ),
                   GestureDetector(
-                    child: new Text('Select from gallery'),
+                    child: Text('Select from gallery'),
                     onTap: () {
                       getImage(ImageSource.gallery, context);
                     },
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.contact_mail),
-            onPressed: () async {
+            onPressed: () {
               final future = _optionsDialogBox(context);
               FutureBuilder(
                 future: future,
