@@ -82,9 +82,22 @@ class _HomePageState extends State<HomePage> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               final List<BusinessCard> cards = snapshot.data;
-              return AllBusinessCard(
-                cards: cards,
-              );
+              return Container(
+                  margin: const EdgeInsets.all(10.0),
+                  child: Column(children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: TextField(
+                        decoration:
+                            InputDecoration(hintText: 'Enter a search term'),
+                      ),
+                    ),
+                    Expanded(
+                        flex: 9,
+                        child: AllBusinessCard(
+                          cards: cards,
+                        ))
+                  ]));
             }
             return Center(child: CircularProgressIndicator());
           },
