@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:quicksnap/data/database/repository.dart';
 import 'package:quicksnap/data/database/tables.dart';
 import 'package:quicksnap/models/business_card_entity.dart';
@@ -8,7 +9,7 @@ import 'package:quicksnap/models/business_card_entity.dart';
  *Saving business card information
  *Making API call 
  */
-class BusinessCardBloc {
+class BusinessCardBloc with ChangeNotifier {
   final Repository<BusinessCard> repo =
       Repository(entity: BusinessCard(), tableName: TABLES.BUSINESS_CARD);
   final String tableName = TABLES.BUSINESS_CARD;

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:quicksnap/blocs/business_card_bloc.dart';
 import 'package:quicksnap/models/business_card_entity.dart';
 
@@ -20,7 +21,6 @@ class BusinessCardForm extends StatefulWidget {
 
 class _BusinessCardFormState extends State<BusinessCardForm> {
   final _formKey = GlobalKey<FormState>();
-  var _businessBloc = BusinessCardBloc();
   var _businessCard = BusinessCard();
   FocusNode _clientNameFocus;
   FocusNode _roleFocus;
@@ -29,7 +29,6 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
   FocusNode _webFocus;
   FocusNode _addressFocus;
   FocusNode _buttonFocus;
-  BusinessCardBloc _crudBusinessCard = BusinessCardBloc();
 
   @override
   void initState() {
@@ -61,6 +60,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
 
   @override
   Widget build(BuildContext context) {
+    final _crudBusinessCard = Provider.of<BusinessCardBloc>(context);
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
@@ -70,6 +70,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
+                key: Key("businessName"),
                 textInputAction: TextInputAction.next,
                 autofocus: true,
                 validator: (val) => _crudBusinessCard.validateRequiredInput(
@@ -84,6 +85,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                     labelText: "Business Name", icon: Icon(Icons.business)),
               ),
               TextFormField(
+                key: Key("clientName"),
                 focusNode: _clientNameFocus,
                 textInputAction: TextInputAction.next,
                 validator: (val) =>
@@ -96,6 +98,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                     labelText: "Client Name", icon: Icon(Icons.person)),
               ),
               TextFormField(
+                key: Key("role"),
                 focusNode: _roleFocus,
                 textInputAction: TextInputAction.next,
                 validator: (val) =>
@@ -110,6 +113,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                     hintText: "Vice President"),
               ),
               TextFormField(
+                key: Key("phoneNumber"),
                 focusNode: _phoneNumberFocus,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.phone,
@@ -123,6 +127,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                     labelText: "Phone Number", icon: Icon(Icons.phone_android)),
               ),
               TextFormField(
+                key: Key("email"),
                 focusNode: _emailFocus,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
@@ -137,6 +142,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                     hintText: "e.g example@example.com"),
               ),
               TextFormField(
+                key: Key("webSite"),
                 focusNode: _webFocus,
                 textInputAction: TextInputAction.next,
                 validator: _crudBusinessCard.validateWebUrl,
@@ -151,6 +157,7 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
                     hintText: "e.g Google.com"),
               ),
               TextFormField(
+                key: Key("address"),
                 focusNode: _addressFocus,
                 textInputAction: TextInputAction.done,
                 validator: (val) =>
@@ -164,9 +171,10 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
               ),
               Center(
                 child: RaisedButton(
+                  key: Key("submitButton"),
                   focusNode: _buttonFocus,
                   onPressed: () {
-                    onSaveButtonPressed();
+                    onSaveButtonPressed(context);
                   },
                   child: Text('Submit'),
                 ),
@@ -179,11 +187,12 @@ class _BusinessCardFormState extends State<BusinessCardForm> {
 /*
  * On SUbmit button Event
  *  */
-  void onSaveButtonPressed() async {
+  void onSaveButtonPressed(BuildContext context) async {
+    final _crudBusinessCard = Provider.of<BusinessCardBloc>(context);
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       _businessCard.setImageUrl = widget._imageUrl.path;
-      final saved = await _businessBloc.saveNewBusinessCard(_businessCard);
+      final saved = await _crudBusinessCard.saveNewBusinessCard(_businessCard);
       if (saved > 0) {
         _formKey.currentState.reset();
         final snackBar =
